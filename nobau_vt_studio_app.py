@@ -63,7 +63,7 @@ st.sidebar.markdown("3. Klik **Generate Konten**.")
 
 # --- FUNGSI PEMANGGIL GEMINI API (GEMINI 3.8 FLASH) ---
 def call_gemini_multimodal(prompt_text, uploaded_image):
-    # Menggunakan model gemini-3.8-flash yang terbukti sukses dan stabil di endpoint v1beta
+    # Menggunakan model terbaru gemini-3.8-flash sesuai pilihan terbaik saat ini
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={API_KEY}"
     
     parts = [{"text": prompt_text}]
