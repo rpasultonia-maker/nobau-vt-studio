@@ -61,14 +61,14 @@ st.sidebar.markdown("1. Pilih menu skenario di tab utama.")
 st.sidebar.markdown("2. Upload gambar referensi Pinterest.")
 st.sidebar.markdown("3. Klik **Generate Konten**.")
 
-# --- FUNGSI PEMANGGIL GEMINI API (GEMINI 3.8 FLASH) ---
+# --- FUNGSI PEMANGGIL GEMINI API (GEMINI 3.8 FLASH OPTIMIZED) ---
 def call_gemini_multimodal(prompt_text, uploaded_image):
-    # Menggunakan model terbaru gemini-3.8-flash sesuai pilihan terbaik saat ini
+    # Menggunakan model gemini-3.8-flash dengan konfigurasi payload yang dioptimalkan
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={API_KEY}"
     
     parts = [{"text": prompt_text}]
     
-    if uploaded_image is not None:
+    if uploaded_file is not None or uploaded_image is not None:
         image_bytes = uploaded_image.getvalue()
         encoded_image = base64.b64encode(image_bytes).decode('utf-8')
         parts.append({
@@ -81,7 +81,8 @@ def call_gemini_multimodal(prompt_text, uploaded_image):
     payload = {
         "contents": [{"parts": parts}],
         "generationConfig": {
-            "response_mime_type": "application/json"
+            "response_mime_type": "application/json",
+            "temperature": 0.7
         }
     }
     
@@ -94,7 +95,7 @@ def call_gemini_multimodal(prompt_text, uploaded_image):
             content_text = res_json['candidates'][0]['content']['parts'][0]['text']
             return json.loads(content_text)
         else:
-            return {"error": f"API Error: {response.text}"}
+            return {"error": f"API Error ({response.status_code}): {response.text}"}
     except Exception as e:
         return {"error": str(e)}
 
