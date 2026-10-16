@@ -59,12 +59,13 @@ st.sidebar.markdown("1. Pilih menu skenario di tab utama.")
 st.sidebar.markdown("2. Upload gambar referensi Pinterest.")
 st.sidebar.markdown("3. Klik **Generate Konten**.")
 
-# --- FUNGSI AMAN PAKAI SDK RESMI GOOGLE GENAI ---
+# --- FUNGSI AMAN PAKAI MODEL STABIL (GEMINI 2.5 FLASH) ---
 def generate_content_safe(client_obj, prompt_text, image_pil):
     if not client_obj:
         return {"error": "GEMINI_API_KEY belum terpasang di Streamlit Secrets!"}
     
-    target_model = 'gemini-3.8-flash'
+    # Menggunakan model stabil produksi untuk menghindari 503 High Demand
+    target_model = 'gemini-2.5-flash'
     last_err = None
     
     for attempt in range(3):
@@ -103,7 +104,7 @@ with tab1:
         if not uploaded_file_1:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Solo UGC..."):
+            with st.spinner("🤖 Gemini sedang meracik naskah & Master Prompt AppSheet Solo UGC..."):
                 try:
                     img_pil = Image.open(uploaded_file_1)
                     system_prompt = f"""
@@ -145,7 +146,7 @@ with tab2:
         if not uploaded_file_2:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Duo UGC..."):
+            with st.spinner("🤖 Gemini sedang meracik naskah & Master Prompt AppSheet Duo UGC..."):
                 try:
                     img_pil = Image.open(uploaded_file_2)
                     system_prompt = f"""
@@ -187,7 +188,7 @@ with tab3:
         if not uploaded_file_3:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini 3.8 sedang meracik Master Prompt AppSheet POV Office..."):
+            with st.spinner("🤖 Gemini sedang meracik Master Prompt AppSheet POV Office..."):
                 try:
                     img_pil = Image.open(uploaded_file_3)
                     system_prompt = f"""
