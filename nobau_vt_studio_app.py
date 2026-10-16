@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import json
 import base64
+import time
 
 # --- KONFIGURASI HALAMAN & API KEY ---
 st.set_page_config(
@@ -61,8 +62,8 @@ st.sidebar.markdown("1. Pilih menu skenario di tab utama.")
 st.sidebar.markdown("2. Upload gambar referensi Pinterest.")
 st.sidebar.markdown("3. Klik **Generate Konten**.")
 
-# --- FUNGSI PEMANGGIL GEMINI API (FIXED & SYNCED) ---
-def call_gemini_multimodal(prompt_text, uploaded_image):
+# --- FUNGSI PEMANGGIL GEMINI API DENGAN SISTEM RETRY AMAN (ANTI 503) ---
+def call_gemini_multimodal_safe(prompt_text, uploaded_image):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={API_KEY}"
     
     parts = [{"text": prompt_text}]
@@ -87,16 +88,27 @@ def call_gemini_multimodal(prompt_text, uploaded_image):
     
     headers = {'Content-Type': 'application/json'}
     
-    try:
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
-        if response.status_code == 200:
-            res_json = response.json()
-            content_text = res_json['candidates'][0]['content']['parts'][0]['text']
-            return json.loads(content_text)
-        else:
-            return {"error": f"API Error ({response.status_code}): {response.text}"}
-    except Exception as e:
-        return {"error": str(e)}
+    last_err = None
+    # Lakukan retry otomatis hingga 3 kali jika server sibuk (503)
+    for attempt in range(3):
+        try:
+            response = requests.post(url, headers=headers, data=json.dumps(payload))
+            if response.status_code == 200:
+                res_json = response.json()
+                content_text = res_json['candidates'][0]['content']['parts'][0]['text']
+                return json.loads(content_text)
+            elif response.status_code == 503:
+                # Tunggu lebih lama (3 detik) jika server sedang high demand
+                time.sleep(3.0)
+                continue
+            else:
+                return {"error": f"API Error ({response.status_code}): {response.text}"}
+        except Exception as e:
+            last_err = str(e)
+            time.sleep(3.0)
+            continue
+            
+    return {"error": f"Gagal terhubung ke server setelah beberapa percobaan. Silakan coba klik generate sekali lagi. (Detail: {last_err})"}
 
 # --- TAB MENU UTAMA ---
 tab1, tab2, tab3 = st.tabs(["🔥 SOLO UGC", "👥 DUO UGC", "🏢 POV OFFICE"])
@@ -124,7 +136,7 @@ with tab1:
                 - "prompt_flow": Prompt Google Flow terstruktur detik AppSheet: "0-3s: Creator looking annoyed at body odor source in mirror, holding NOBAU DeoFresh. 4-5s: Quick satisfying one-thumb spray action with visible fine mist. 6-8s: Relieved confident expression, smooth product hero close-up shot with clean fresh vibe."
                 Catatan tambahan dari kreator: {extra_notes_1}
                 """
-                result = call_gemini_multimodal(system_prompt, uploaded_file_1)
+                result = call_gemini_multimodal_safe(system_prompt, uploaded_file_1)
                 
                 if "error" in result:
                     st.error(result["error"])
@@ -163,7 +175,7 @@ with tab2:
                 - "prompt_flow": Prompt Google Flow terstruktur detik AppSheet: "0-3s: Friend reacting playfully to sweat/odor, main creator smiling while pulling out NOBAU DeoFresh. 4-6s: Quick dynamic spray demonstration in public setting. 7-8s: Both laughing and nodding, final hero shot of product next to coffee cup or gym gear."
                 Catatan tambahan dari kreator: {extra_notes_2}
                 """
-                result = call_gemini_multimodal(system_prompt, uploaded_file_2)
+                result = call_gemini_multimodal_safe(system_prompt, uploaded_file_2)
                 
                 if "error" in result:
                     st.error(result["error"])
@@ -202,7 +214,7 @@ with tab3:
                 - "prompt_flow": Prompt Google Flow terstruktur detik AppSheet: "0-3s: POV looking down at office desk and shoes, handling work stress. 4-6s: One hand uncapping NOBAU DeoFresh with a single thumb, tilting camera down sharply to spray shoes under the desk. 7-10s: Relief expression, clean desk hero shot with product."
                 Catatan tambahan dari kreator: {extra_notes_3}
                 """
-                result = call_gemini_multimodal(system_prompt, uploaded_file_3)
+                result = call_gemini_multimodal_safe(system_prompt, uploaded_file_3)
                 
                 if "error" in result:
                     st.error(result["error"])
