@@ -1,14 +1,19 @@
 import streamlit as st
+import requests
 import json
 import base64
-import requests
 
-# Konfigurasi Halaman Streamlit
+# --- KONFIGURASI HALAMAN & API KEY ---
 st.set_page_config(
-    page_title="NOBAU VT Studio Official",
-    page_icon="✨",
+    page_title="NOBAU VT Studio Official", 
+    page_icon="🚀", 
     layout="wide",
     initial_sidebar_state="expanded"
+)
+
+API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+if not API_KEY:
+    API_KEY = st.sidebar.text_input("Masukkan API Key Google AI Studio", type="password")
 )
 
 # Styling Tambahan untuk Tampilan Modern & Clean
