@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Langsung ambil API Key secara otomatis dari Streamlit Secrets (Tanpa kotak input manual)
+# Langsung ambil API Key secara otomatis dari Streamlit Secrets
 try:
     API_KEY = st.secrets["GEMINI_API_KEY"]
 except Exception:
@@ -61,9 +61,10 @@ st.sidebar.markdown("1. Pilih menu skenario di tab utama.")
 st.sidebar.markdown("2. Upload gambar referensi Pinterest.")
 st.sidebar.markdown("3. Klik **Generate Konten**.")
 
-# --- FUNGSI PEMANGGIL GEMINI API ---
+# --- FUNGSI PEMANGGIL GEMINI API (UPDATED MODEL) ---
 def call_gemini_multimodal(prompt_text, uploaded_image):
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
+    # Menggunakan model gemini-2.5-flash atau gemini-1.5-flash yang kompatibel
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
     
     parts = [{"text": prompt_text}]
     
