@@ -125,25 +125,13 @@ with tab1:
         else:
             with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Solo UGC..."):
                 system_prompt = f"""
-                Analisis gambar referensi Pinterest yang diberikan. Hasilkan Master Image Prompt dan Content Brain V3 Video Prompt baku sesuai format persis di bawah ini dalam format JSON murni:
-                - "pilar": Pilar konten (Problem-Solution, Edukasi, atau Unboxing).
+                Analisis gambar referensi Pinterest yang diberikan. Hasilkan JSON murni yang memuat kunci berikut secara presisi:
+                - "pilar": Pilar konten (Problem-Solution / Personal Care).
                 - "topik": Topik tren TikTok dengan slang fonetik khas (contoh: 'apeuk', 'tengik').
-                - "naskah": Naskah voiceover 8 detik (Hook 0-2s, Aksi Semprot 2-5s, Payoff/CTA 5-8s).
-                - "prompt_image": 
-                Create a highly natural, photorealistic smartphone selfie photograph based on the uploaded reference image.
-                SUBJECT: A young Indonesian woman taking a casual smartphone selfie in a private bedroom/dressing room.
-                CAMERA: Authentic smartphone front-camera selfie perspective, high-angle, 24–28mm equivalent.
-                SKIN & REALISM: Natural realistic skin texture, pores, subtle imperfections, no plastic skin, no heavy beauty filters.
-                PHOTOGRAPHIC STYLE: Authentic Indonesian social-media selfie aesthetic, casual handheld photo.
-                
-                - "prompt_flow": 
-                A continuous 8-second vertical 9:16 smartphone UGC video recorded inside private bedroom.
-                STORY & TIMELINE (0-8s):
-                0-3s (HOOK): Creator looking annoyed at body odor source in mirror, holding NOBAU DeoFresh.
-                3-6s (ACTION): One hand uncapping NOBAU DeoFresh with a single thumb, quick satisfying spray action with visible fine mist.
-                6-8s (PAYOFF & CTA): Relieved expression, smooth product hero close-up shot with clean fresh vibe.
-                
-                Catatan tambahan dari kreator: {extra_notes_1}
+                - "naskah": Naskah voiceover 8 detik (gaya julid santai khas kreator Indonesia dengan jeda napas natural).
+                - "prompt_image": "Create a natural 9:16 vertical smartphone photograph taken from a close-up personal perspective in a private bedroom, matching the composition, lighting, and aesthetic of the separately uploaded scene reference image. CRITICAL RULE: Ensure only ONE single compact NOBAU DeoFresh spray bottle is held near the creator's clothing or armpit area. Remove any secondary or duplicate bottles. PHOTOGRAPHIC STYLE: Authentic casual smartphone snapshot, natural indoor lighting, natural depth of field with sharp focus on the creator and product. NO CGI, strictly raw photography descriptors."
+                - "prompt_flow": "A continuous 8-second vertical 9:16 smartphone UGC video recorded entirely from a personal close-up perspective in a private bedroom, matching Image 1. IDENTITY: Main female creator, organic sassy Indonesian tone. PRODUCT & ACTION: Holding ONLY ONE NOBAU spray bottle in right hand. 0-3s: Using right thumb to pop off clear cap while speaking opening line. 3-6s: Quick satisfying spray action directed near clothing area with visible fine mist. 6-8s: Relieved expression, bringing bottle close to lens for clear label view."
+                Catatan tambahan kreator: {extra_notes_1}
                 """
                 result = call_gemini_multimodal_safe(system_prompt, uploaded_file_1)
                 
@@ -175,25 +163,13 @@ with tab2:
         else:
             with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Duo UGC..."):
                 system_prompt = f"""
-                Analisis gambar referensi Pinterest yang diberikan. Hasilkan Master Image Prompt dan Content Brain V3 Video Prompt baku sesuai format persis di bawah ini dalam format JSON murni:
+                Analisis gambar referensi Pinterest yang diberikan. Hasilkan JSON murni yang memuat kunci berikut secara presisi:
                 - "pilar": Pilar konten (Relatable Lifestyle & Humor / Problem-Solution).
                 - "topik": Topik tren publik dengan slang khas.
-                - "naskah": Dialog interaktif (Main Creator & Celetohan Teman Dinamis Kasual).
-                - "prompt_image": 
-                Create a highly natural, photorealistic smartphone photograph based on the uploaded reference image.
-                SUBJECT: Two young friends interacting dynamically in a vibrant public space (cafe/gym).
-                CAMERA: Authentic handheld smartphone camera perspective, casual framing.
-                SKIN & REALISM: Natural realistic skin texture, pores, subtle imperfections, no heavy beauty filters.
-                PHOTOGRAPHIC STYLE: Authentic Indonesian social-media creator aesthetic.
-                
-                - "prompt_flow": 
-                A continuous 8-second vertical 9:16 smartphone UGC video recorded in a public space.
-                STORY & TIMELINE (0-8s):
-                0-3s (HOOK): Friend reacting playfully to sweat/odor, main creator smiling while pulling out NOBAU DeoFresh.
-                3-6s (ACTION): Quick dynamic spray demonstration in public setting.
-                6-8s (PAYOFF & CTA): Both laughing and nodding, final hero shot of product next to coffee cup or gym gear.
-                
-                Catatan tambahan dari kreator: {extra_notes_2}
+                - "naskah": Dialog interaktif (Main Creator & Celetohan Teman Dinamis Kasual gaya julid santai).
+                - "prompt_image": "Create a natural 9:16 vertical smartphone photograph at an outdoor cafe table, matching the composition and layout of the uploaded scene reference. CRITICAL RULE: Ensure only ONE single compact NOBAU DeoFresh spray bottle is placed on the table next to coffee cups. Remove secondary or duplicate bottles. PHOTOGRAPHIC STYLE: Authentic casual smartphone snapshot, realistic ambient lighting at dusk, natural depth of field. NO CGI, strictly raw photography descriptors."
+                - "prompt_flow": "A continuous 8-second vertical 9:16 smartphone UGC video recorded at an outdoor cafe table, matching Image 1. IDENTITY: Main creator and friend interacting dynamically with natural Indonesian speech. PRODUCT & ACTION: Holding ONLY ONE NOBAU spray bottle. 0-3s: Friend reacts playfully to odor, main creator pulls out bottle. 3-6s: Quick dynamic spray demonstration in public setting. 6-8s: Both laughing, final hero shot of product label clearly shown."
+                Catatan tambahan kreator: {extra_notes_2}
                 """
                 result = call_gemini_multimodal_safe(system_prompt, uploaded_file_2)
                 
@@ -225,21 +201,13 @@ with tab3:
         else:
             with st.spinner("🤖 Gemini 3.8 sedang meracik Master Prompt AppSheet POV Office..."):
                 system_prompt = f"""
-                Analisis gambar referensi Pinterest yang diberikan. Hasilkan Master Image Prompt dan Content Brain V3 Video Prompt baku sesuai format persis di bawah ini dalam format JSON murni:
+                Analisis gambar referensi Pinterest yang diberikan. Hasilkan JSON murni yang memuat kunci berikut secara presisi:
                 - "pilar": Pilar konten (Workplace Realities & Problem-Solution).
                 - "topik": Topik tren perkantoran / sepatu bau di bawah meja kerja.
-                - "naskah": Naskah Voiceover POV 10 detik: Mengangkat stres kerja dan masalah bau sepatu/kaki di kantor, aksi satu jempol buka botol NOBAU DeoFresh, semprot ke bawah meja dengan latar dokumen CV.
-                - "prompt_image": 
-                First-person POV shot across an office desk, messy paperwork, laptop, sleek NOBAU DeoFresh spray bottle placed prominently on desk, moody professional office lighting, photorealistic 8k.
-                
-                - "prompt_flow": 
-                A continuous 10-second vertical 9:16 smartphone UGC video recorded from first-person POV.
-                STORY & TIMELINE (0-10s):
-                0-3s (HOOK): POV looking down at office desk and shoes, handling work stress.
-                3-6s (ACTION): One hand uncapping NOBAU DeoFresh with a single thumb, tilting camera down sharply to spray shoes under the desk.
-                6-10s (PAYOFF & CTA): Relief expression, clean desk hero shot with product.
-                
-                Catatan tambahan dari kreator: {extra_notes_3}
+                - "naskah": Naskah Voiceover POV 10 detik (gaya julid santai khas kreator Indonesia dengan jeda napas natural).
+                - "prompt_image": "Create a natural 9:16 vertical smartphone photograph taken from a first-person perspective (POV) sitting at an office desk, matching the composition, laptop layout, and natural indoor lighting of the separately uploaded scene reference image. CRITICAL RULE: OBSTRUCTION & DUPLICATE CLEANUP. Ensure only ONE single compact spray bottle is placed on the desk to the right side near the computer mouse. Remove any secondary or duplicate bottles from the desk surface. PHOTOGRAPHIC STYLE: Authentic casual office smartphone snapshot, realistic indoor lighting, natural depth of field with sharp focus on the laptop and desk setup. NO CGI, strictly raw photography descriptors."
+                - "prompt_flow": "A continuous 10-second vertical 9:16 smartphone UGC video recorded entirely from a first-person perspective (POV) sitting at an office desk, matching Image 1. IDENTITY: First-person POV of main female creator with organic, sassy Indonesian voice tone (gaya julid santai). STATIONARY DESK ENVIRONMENT: Desk background, laptop, and documents remain fully static. PRODUCT & ACTION: Holding ONLY ONE NOBAU spray bottle in right hand. 0-3s: Using right thumb to pop off cap while speaking opening line. 3-6.5s: Smoothly tilting camera downward toward office shoes under desk (directing spray below desk level) and spraying 2 quick mists. 6.5-10s: Bringing bottle upward toward camera lens to show label clearly."
+                Catatan tambahan kreator: {extra_notes_3}
                 """
                 result = call_gemini_multimodal_safe(system_prompt, uploaded_file_3)
                 
