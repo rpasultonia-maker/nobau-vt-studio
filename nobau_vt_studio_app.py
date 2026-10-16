@@ -61,9 +61,10 @@ st.sidebar.markdown("1. Pilih menu skenario di tab utama.")
 st.sidebar.markdown("2. Upload gambar referensi Pinterest.")
 st.sidebar.markdown("3. Klik **Generate Konten**.")
 
-# --- FUNGSI PEMANGGIL GEMINI API ---
+# --- FUNGSI PEMANGGIL GEMINI API (GEMINI 3.8 FLASH) ---
 def call_gemini_multimodal(prompt_text, uploaded_image):
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
+    # Menggunakan model gemini-3.8-flash terbaru dan paling stabil
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={API_KEY}"
     
     parts = [{"text": prompt_text}]
     
@@ -112,7 +113,7 @@ with tab1:
         if not uploaded_file_1:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini sedang meracik naskah & Master Prompt AppSheet Solo UGC..."):
+            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Solo UGC..."):
                 system_prompt = f"""
                 Bertindaklah sebagai Senior TikTok Content Strategist untuk brand 'NOBAU DeoFresh' (produk deodorizing spray multiguna).
                 Analisis gambar referensi Pinterest yang diberikan. Buatlah paket konten video pendek berdurasi 8 detik dengan format JSON murni yang menggunakan kuncian standar AppSheet berikut:
@@ -151,7 +152,7 @@ with tab2:
         if not uploaded_file_2:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini sedang meracik naskah & Master Prompt AppSheet Duo UGC..."):
+            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Duo UGC..."):
                 system_prompt = f"""
                 Bertindaklah sebagai Senior TikTok Content Strategist untuk brand 'NOBAU DeoFresh'.
                 Analisis gambar referensi Pinterest yang diberikan. Buatlah paket konten video duo berdurasi 8 detik dengan format JSON murni yang menggunakan kuncian standar AppSheet berikut:
@@ -190,7 +191,7 @@ with tab3:
         if not uploaded_file_3:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini sedang meracik Master Prompt AppSheet POV Office..."):
+            with st.spinner("🤖 Gemini 3.8 sedang meracik Master Prompt AppSheet POV Office..."):
                 system_prompt = f"""
                 Bertindaklah sebagai Senior TikTok Content Strategist untuk brand 'NOBAU DeoFresh'.
                 Analisis gambar referensi Pinterest yang diberikan. Buatlah paket konten video POV Office berdurasi 10 detik dengan format JSON murni yang menggunakan kuncian standar AppSheet berikut:
