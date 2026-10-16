@@ -10,11 +10,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
 API_KEY = st.secrets.get("GEMINI_API_KEY", "")
 if not API_KEY:
     API_KEY = st.sidebar.text_input("Masukkan API Key Google AI Studio", type="password")
-)
 
 # Styling Tambahan untuk Tampilan Modern & Clean
 st.markdown("""
