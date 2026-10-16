@@ -82,7 +82,7 @@ def call_gemini_multimodal_safe(prompt_text, uploaded_image):
         "contents": [{"parts": parts}],
         "generationConfig": {
             "response_mime_type": "application/json",
-            "temperature": 0.7
+            "temperature": 0.4
         }
     }
     
@@ -123,15 +123,26 @@ with tab1:
         if not uploaded_file_1:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Kuncian Master Prompt AppSheet Solo UGC..."):
+            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Solo UGC..."):
                 system_prompt = f"""
-                Bertindaklah sebagai Senior TikTok Content Strategist untuk brand 'NOBAU DeoFresh' (produk deodorizing spray multiguna untuk ketiak, sepatu, helm, pakaian, ruangan).
-                Analisis gambar referensi Pinterest yang diberikan. Buatlah paket konten video pendek berdurasi 8 detik dengan format JSON murni yang berisi kunci berikut:
+                Analisis gambar referensi Pinterest yang diberikan. Hasilkan Master Image Prompt dan Content Brain V3 Video Prompt baku sesuai format persis di bawah ini dalam format JSON murni:
                 - "pilar": Pilar konten (Problem-Solution, Edukasi, atau Unboxing).
                 - "topik": Topik tren TikTok dengan slang fonetik khas (contoh: 'apeuk', 'tengik').
-                - "naskah": Naskah voiceover 8 detik (Hook 0-2s: lempar masalah bau/ketiak basah secara nyelekit; Aksi Semprot 2-5s: uncap botol dengan satu jempol dan semprot; Payoff/CTA 5-8s: reaksi lega dan pamer kesegaran).
-                - "prompt_image": Master Prompt Image terstruktur ketat ala AppSheet: "Photorealistic close-up UGC style in a private bedroom/dressing room, young Indonesian creator holding a sleek minimalist NOBAU DeoFresh spray bottle near armpit/clothing area, natural morning sunlight, highly detailed texture, 8k resolution, cinematic aesthetic, authentic social-media selfie perspective."
-                - "prompt_flow": Prompt Google Flow terstruktur per detik ala AppSheet: "0-3s: Creator looking annoyed at body odor source in mirror, holding NOBAU DeoFresh. 4-5s: Quick satisfying one-thumb spray action with visible fine mist. 6-8s: Relieved confident expression, smooth product hero close-up shot with clean fresh vibe."
+                - "naskah": Naskah voiceover 8 detik (Hook 0-2s, Aksi Semprot 2-5s, Payoff/CTA 5-8s).
+                - "prompt_image": 
+                Create a highly natural, photorealistic smartphone selfie photograph based on the uploaded reference image.
+                SUBJECT: A young Indonesian woman taking a casual smartphone selfie in a private bedroom/dressing room.
+                CAMERA: Authentic smartphone front-camera selfie perspective, high-angle, 24–28mm equivalent.
+                SKIN & REALISM: Natural realistic skin texture, pores, subtle imperfections, no plastic skin, no heavy beauty filters.
+                PHOTOGRAPHIC STYLE: Authentic Indonesian social-media selfie aesthetic, casual handheld photo.
+                
+                - "prompt_flow": 
+                A continuous 8-second vertical 9:16 smartphone UGC video recorded inside private bedroom.
+                STORY & TIMELINE (0-8s):
+                0-3s (HOOK): Creator looking annoyed at body odor source in mirror, holding NOBAU DeoFresh.
+                3-6s (ACTION): One hand uncapping NOBAU DeoFresh with a single thumb, quick satisfying spray action with visible fine mist.
+                6-8s (PAYOFF & CTA): Relieved expression, smooth product hero close-up shot with clean fresh vibe.
+                
                 Catatan tambahan dari kreator: {extra_notes_1}
                 """
                 result = call_gemini_multimodal_safe(system_prompt, uploaded_file_1)
@@ -162,15 +173,26 @@ with tab2:
         if not uploaded_file_2:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Kuncian Master Prompt AppSheet Duo UGC..."):
+            with st.spinner("🤖 Gemini 3.8 sedang meracik naskah & Master Prompt AppSheet Duo UGC..."):
                 system_prompt = f"""
-                Bertindaklah sebagai Senior TikTok Content Strategist untuk brand 'NOBAU DeoFresh' (produk deodorizing spray multiguna).
-                Analisis gambar referensi Pinterest yang diberikan. Buatlah paket konten video duo berdurasi 8 detik dengan format JSON murni yang berisi kunci berikut:
+                Analisis gambar referensi Pinterest yang diberikan. Hasilkan Master Image Prompt dan Content Brain V3 Video Prompt baku sesuai format persis di bawah ini dalam format JSON murni:
                 - "pilar": Pilar konten (Relatable Lifestyle & Humor / Problem-Solution).
-                - "topik": Topik tren publik dengan slang khas (contoh: nongkrong outdoor anti apek).
-                - "naskah": Naskah dialog interaktif 8 detik: Dialog kasual antara Main Creator & Celetohan Teman Dinamis yang meledek bau keringat/badan, dibalas solusi praktis semprot NOBAU DeoFresh.
-                - "prompt_image": Master Prompt Image terstruktur ketat ala AppSheet: "Photorealistic UGC style in a vibrant public space (cafe/gym), two young friends interacting dynamically, main creator holding a sleek NOBAU DeoFresh spray bottle, warm natural lighting, highly detailed, 8k resolution, authentic handheld smartphone camera perspective."
-                - "prompt_flow": Prompt Google Flow terstruktur per detik ala AppSheet: "0-3s: Friend reacting playfully to sweat/odor, main creator smiling while pulling out NOBAU DeoFresh. 4-6s: Quick dynamic spray demonstration in public setting. 7-8s: Both laughing and nodding, final hero shot of product next to coffee cup or gym gear."
+                - "topik": Topik tren publik dengan slang khas.
+                - "naskah": Dialog interaktif (Main Creator & Celetohan Teman Dinamis Kasual).
+                - "prompt_image": 
+                Create a highly natural, photorealistic smartphone photograph based on the uploaded reference image.
+                SUBJECT: Two young friends interacting dynamically in a vibrant public space (cafe/gym).
+                CAMERA: Authentic handheld smartphone camera perspective, casual framing.
+                SKIN & REALISM: Natural realistic skin texture, pores, subtle imperfections, no heavy beauty filters.
+                PHOTOGRAPHIC STYLE: Authentic Indonesian social-media creator aesthetic.
+                
+                - "prompt_flow": 
+                A continuous 8-second vertical 9:16 smartphone UGC video recorded in a public space.
+                STORY & TIMELINE (0-8s):
+                0-3s (HOOK): Friend reacting playfully to sweat/odor, main creator smiling while pulling out NOBAU DeoFresh.
+                3-6s (ACTION): Quick dynamic spray demonstration in public setting.
+                6-8s (PAYOFF & CTA): Both laughing and nodding, final hero shot of product next to coffee cup or gym gear.
+                
                 Catatan tambahan dari kreator: {extra_notes_2}
                 """
                 result = call_gemini_multimodal_safe(system_prompt, uploaded_file_2)
@@ -201,15 +223,22 @@ with tab3:
         if not uploaded_file_3:
             st.warning("⚠️ Harap upload foto referensi Pinterest terlebih dahulu!")
         else:
-            with st.spinner("🤖 Gemini 3.8 sedang meracik Kuncian Master Prompt AppSheet POV Office..."):
+            with st.spinner("🤖 Gemini 3.8 sedang meracik Master Prompt AppSheet POV Office..."):
                 system_prompt = f"""
-                Bertindaklah sebagai Senior TikTok Content Strategist untuk brand 'NOBAU DeoFresh' (produk deodorizing spray multiguna).
-                Analisis gambar referensi Pinterest yang diberikan. Buatlah paket konten video POV Office berdurasi 10 detik dengan format JSON murni yang berisi kunci berikut:
+                Analisis gambar referensi Pinterest yang diberikan. Hasilkan Master Image Prompt dan Content Brain V3 Video Prompt baku sesuai format persis di bawah ini dalam format JSON murni:
                 - "pilar": Pilar konten (Workplace Realities & Problem-Solution).
                 - "topik": Topik tren perkantoran / sepatu bau di bawah meja kerja.
-                - "naskah": Naskah Voiceover POV 10 detik: Mengangkat stres kerja dan masalah bau sepatu/kaki di kantor, aksi satu jempol buka botol NOBAU DeoFresh, semprot ke bawah meja dengan latar dokumen CV atau meja kerja.
-                - "prompt_image": Master Prompt Image terstruktur ketat ala AppSheet: "First-person POV shot across an office desk, messy paperwork, laptop, sleek NOBAU DeoFresh spray bottle placed prominently on desk, moody professional office lighting, photorealistic 8k."
-                - "prompt_flow": Prompt Google Flow terstruktur per detik ala AppSheet: "0-3s: POV looking down at office desk and shoes, handling work stress. 4-6s: One hand uncapping NOBAU DeoFresh with a single thumb, tilting camera down sharply to spray shoes under the desk. 7-10s: Relief expression, clean desk hero shot with product."
+                - "naskah": Naskah Voiceover POV 10 detik: Mengangkat stres kerja dan masalah bau sepatu/kaki di kantor, aksi satu jempol buka botol NOBAU DeoFresh, semprot ke bawah meja dengan latar dokumen CV.
+                - "prompt_image": 
+                First-person POV shot across an office desk, messy paperwork, laptop, sleek NOBAU DeoFresh spray bottle placed prominently on desk, moody professional office lighting, photorealistic 8k.
+                
+                - "prompt_flow": 
+                A continuous 10-second vertical 9:16 smartphone UGC video recorded from first-person POV.
+                STORY & TIMELINE (0-10s):
+                0-3s (HOOK): POV looking down at office desk and shoes, handling work stress.
+                3-6s (ACTION): One hand uncapping NOBAU DeoFresh with a single thumb, tilting camera down sharply to spray shoes under the desk.
+                6-10s (PAYOFF & CTA): Relief expression, clean desk hero shot with product.
+                
                 Catatan tambahan dari kreator: {extra_notes_3}
                 """
                 result = call_gemini_multimodal_safe(system_prompt, uploaded_file_3)
