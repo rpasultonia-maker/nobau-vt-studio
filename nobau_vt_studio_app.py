@@ -61,10 +61,10 @@ st.sidebar.markdown("1. Pilih menu skenario di tab utama.")
 st.sidebar.markdown("2. Upload gambar referensi Pinterest.")
 st.sidebar.markdown("3. Klik **Generate Konten**.")
 
-# --- FUNGSI PEMANGGIL GEMINI API (STABLE & RELIABLE) ---
+# --- FUNGSI PEMANGGIL GEMINI API (FINAL FIXED ENDPOINT) ---
 def call_gemini_multimodal(prompt_text, uploaded_image):
-    # Menggunakan endpoint gemini-1.5-flash standar yang paling stabil
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={API_KEY}"
+    # Menggunakan model gemini-2.5-flash dengan endpoint v1beta yang paling stabil untuk multimodal
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
     
     parts = [{"text": prompt_text}]
     
